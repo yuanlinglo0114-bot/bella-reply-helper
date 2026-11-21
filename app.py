@@ -9,7 +9,42 @@ st.set_page_config(
     page_icon="✉️",
     layout="wide",
 )
+def apply_custom_theme() -> None:
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background-color: #FAF6F0;
+            color: #2C2621;
+        }
+        [data-testid="stSidebar"] {
+            background-color: #F3ECE1;
+            border-right: 1px solid #E2D6C5;
+        }
+        .stButton > button[kind="primary"] {
+            background-color: #C87D4B;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+        }
+        .stButton > button[kind="primary"]:hover {
+            background-color: #B26A3B;
+        }
+        .stButton > button:not([kind="primary"]) {
+            border-radius: 10px;
+            border: 1px solid #D8C7B2;
+            background-color: #FFFDF9;
+            color: #2C2621;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
+
+apply_custom_theme()
 FIXED_GUARDRAILS_ZH = [
     "訂單若已準備好，只寫 ready（訂單已備妥），絕對不要自行加上 ahead of schedule、early 或提早完成。",
     "運費若是 Bella 幫忙查詢提供的，清楚說明運費由我方協助查詢提供，待確認寄送方式後提供明細或選項。",
@@ -22,7 +57,7 @@ FIXED_GUARDRAILS_ZH = [
 # 結構：CONTACTS_DB[客戶分類][客戶公司名稱 / 貨代 / 快遞][國家][聯絡人姓名]
 DEFAULT_CONTACTS_DB: dict[str, dict[str, dict[str, dict[str, dict[str, str]]]]] = {
     "海外": {
-        "Mireya Corp.": {
+        "Casco": {
             "西班牙": {
                 "Mireya": {
                     "salutation": "Hi Mireya",
@@ -926,3 +961,4 @@ with col_right:
                     st.rerun()
                 except Exception as exc:
                     st.error(f"提問失敗：{exc}")
+                    
